@@ -1,24 +1,57 @@
-require("nvchad.options")
+local opt = vim.opt
+local o = vim.o
+local g = vim.g
 
-local enable_providers = {
-	"python3_provider",
-}
-for _, plugin in pairs(enable_providers) do
-	vim.g["loaded_" .. plugin] = nil
-	vim.cmd("runtime " .. plugin)
-end
+o.laststatus = 3
+o.showmode = false
 
-vim.opt.conceallevel = 0
-vim.opt.spell = true
-vim.opt.spelllang = { "en", "ru" }
-vim.opt.scrolloff = 3
+o.clipboard = "unnamedplus"
+o.cursorline = true
+o.cursorlineopt = "number"
 
-vim.opt.cursorline = true
-vim.opt.cursorlineopt = "both"
-local base30 = require("base46").get_theme_tb("base_30")
-vim.api.nvim_set_hl(0, "CursorLine", { bg = base30.black2 })
-vim.api.nvim_set_hl(0, "CursorLineNr", { link = "CursorLine" })
+opt.conceallevel = 0
+opt.spell = true
+opt.spelllang = { "en", "ru" }
+opt.scrolloff = 3
 
-vim.g.editorconfig = true
+-- Indenting
+o.expandtab = true
+o.shiftwidth = 2
+o.smartindent = true
+o.tabstop = 2
+o.softtabstop = 2
+
+opt.fillchars = { eob = " " }
+o.ignorecase = true
+o.smartcase = true
+o.mouse = "a"
+
+-- Numbers
+o.number = true
+o.numberwidth = 2
+o.ruler = false
+
+-- disable nvim intro
+opt.shortmess:append "sI"
+
+o.signcolumn = "yes"
+o.splitbelow = true
+o.splitright = true
+o.timeoutlen = 400
+o.undofile = true
+
+-- interval for writing swap file to disk, also used by gitsigns
+o.updatetime = 250
+
+-- go to previous/next line with h,l,left arrow and right arrow
+-- when cursor reaches end/beginning of line
+opt.whichwrap:append "<>[]hl"
+
+-- disable some default providers
+g.loaded_node_provider = 0
+g.loaded_perl_provider = 0
+g.loaded_ruby_provider = 0
+
+g.editorconfig = true
 
 vim.cmd([[au FileType markdown match WildMenu /\s\{2,\}$/]]) -- at least 2 trailing spaces
