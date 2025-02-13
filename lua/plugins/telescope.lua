@@ -1,7 +1,16 @@
 local mappings = require("mappings.telescope")
 ---@type NvPluginSpec[]
 return {
-	{ "nvim-telescope/telescope.nvim", keys = mappings.telescope },
+
+	{
+		"nvim-telescope/telescope.nvim",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		cmd = "Telescope",
+		keys = mappings.telescope,
+		opts = function()
+			return require "nvchad.configs.telescope"
+		end,
+	},
 
 	{
 		"johmsalas/text-case.nvim",

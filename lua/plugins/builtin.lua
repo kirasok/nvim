@@ -1,16 +1,45 @@
 ---@type NvPluginSpec[]
 local plugins = {
+	"nvim-lua/plenary.nvim",
 
 	{
-		"hrsh7th/nvim-cmp",
+		"nvchad/base46",
+		build = function()
+			require("base46").load_all_highlights()
+		end,
+	},
+
+	{
+		"nvchad/ui",
+		lazy = false,
+		config = function()
+			require "nvchad"
+		end,
+	},
+
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		event = "User FilePost",
+		opts = {
+			indent = { char = "│", highlight = "IblChar" },
+			scope = { char = "│", highlight = "IblScopeChar" },
+		},
+		config = function(_, opts)
+			dofile(vim.g.base46_cache .. "blankline")
+
+			local hooks = require "ibl.hooks"
+			hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_space_indent_level)
+			require("ibl").setup(opts)
+
+			dofile(vim.g.base46_cache .. "blankline")
+		end,
+	},
+
+	{
+		"nvim-tree/nvim-web-devicons",
 		opts = function()
-			local opts = require("nvchad.configs.cmp")
-			opts.sources = {
-				{ name = "nvim_lsp" },
-				{ name = "luasnip" },
-				{ name = "path" },
-			}
-			return opts
+			dofile(vim.g.base46_cache .. "devicons")
+			return { override = require "nvchad.icons.devicons" }
 		end,
 	},
 
@@ -18,11 +47,6 @@ local plugins = {
 
 	{
 		"rafamadriz/friendly-snippets",
-		enabled = false,
-	},
-
-	{
-		"nvim-tree/nvim-tree.lua",
 		enabled = false,
 	},
 
@@ -47,7 +71,67 @@ local plugins = {
 	{
 		"folke/which-key.nvim",
 		lazy = false,
+		keys = { "<leader>", "<c-w>", '"', "'", "`", "c", "v", "g" },
+		cmd = "WhichKey",
+		opts = function()
+			dofile(vim.g.base46_cache .. "whichkey")
+			return {}
+		end,
 	},
+
+	-- git stuff
+	{
+		"lewis6991/gitsigns.nvim",
+		event = "User FilePost",
+		opts = function()
+			return require "nvchad.configs.gitsigns"
+		end,
+	},
+
+	-- load luasnips + cmp related in insert mode only
+	{
+		"hrsh7th/nvim-cmp",
+		event = "InsertEnter",
+		dependencies = {
+			{
+				-- snippet plugin
+				"L3MON4D3/LuaSnip",
+			},
+
+			-- autopairing of (){}[] etc
+			{
+				"windwp/nvim-autopairs",
+				opts = {
+					fast_wrap = {},
+					disable_filetype = { "TelescopePrompt", "vim" },
+				},
+				config = function(_, opts)
+					require("nvim-autopairs").setup(opts)
+
+					-- setup cmp for autopairs
+					local cmp_autopairs = require "nvim-autopairs.completion.cmp"
+					require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
+				end,
+			},
+
+			-- cmp sources plugins
+			{
+				"saadparwaiz1/cmp_luasnip",
+				"hrsh7th/cmp-nvim-lsp",
+				"hrsh7th/cmp-path",
+			},
+		},
+		opts = function()
+			local opts = require "nvchad.configs.cmp"
+			opts.sources = {
+				{ name = "nvim_lsp" },
+				{ name = "luasnip" },
+				{ name = "path" },
+			}
+			return opts
+		end,
+	},
+
 }
 
 return plugins
