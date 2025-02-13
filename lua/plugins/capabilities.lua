@@ -121,4 +121,42 @@ return {
 		event = { "InsertLeave", "TextChanged" },
 		opts = configs.autosave,
 	},
+
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		event = "User FilePost",
+		opts = {
+			indent = { char = "│", highlight = "IblChar" },
+			scope = { char = "│", highlight = "IblScopeChar" },
+		},
+		config = function(_, opts)
+			dofile(vim.g.base46_cache .. "blankline")
+
+			local hooks = require "ibl.hooks"
+			hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_space_indent_level)
+			require("ibl").setup(opts)
+
+			dofile(vim.g.base46_cache .. "blankline")
+		end,
+	},
+
+	{
+		"nvim-tree/nvim-web-devicons",
+		opts = function()
+			dofile(vim.g.base46_cache .. "devicons")
+			return { override = require "nvchad.icons.devicons" }
+		end,
+	},
+
+	{
+		"folke/which-key.nvim",
+		lazy = false,
+		keys = { "<leader>", "<c-w>", '"', "'", "`", "c", "v", "g" },
+		cmd = "WhichKey",
+		opts = function()
+			dofile(vim.g.base46_cache .. "whichkey")
+			return {}
+		end,
+	},
+
 }

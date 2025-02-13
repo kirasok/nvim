@@ -15,6 +15,7 @@ require("which-key").add({
 })
 
 return {
+	--TODO: maybe set shorter keymaps?
 	setup = function(server_capabilities)
 		map("n", "<leader>lf", function()
 			require("conform").format({ async = true, lsp_fallback = true }, nil)

@@ -1,4 +1,3 @@
-local nvchad_config = require("nvchad.configs.lspconfig")
 local config = require("configs.lsp")
 local mappings = require("mappings.lspconfig")
 
@@ -29,14 +28,15 @@ local plugins = {
 		config = function()
 			dofile(vim.g.base46_cache .. "lsp")
 			local on_attach = config.on_attach
-			local capabilities = nvchad_config.capabilities
+			local capabilities = config.capabilities
+			local on_init = config.on_init
 
 			local lspconfig = require("lspconfig")
 
 			for name, opts in pairs(config.servers) do
 				opts.on_attach = on_attach
 				opts.capabilities = capabilities
-				opts.on_init = nvchad_config.on_init
+				opts.on_init = on_init
 				lspconfig[name].setup(opts)
 			end
 		end,

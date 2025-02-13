@@ -16,8 +16,8 @@ local plugins = {
 		keys = mappings.neogit,
 		opts = configs.neogit,
 		dependencies = {
-			"nvim-lua/plenary.nvim", -- required
-			"sindrets/diffview.nvim", -- optional - Diff integration
+			"nvim-lua/plenary.nvim",      -- required
+			"sindrets/diffview.nvim",     -- optional - Diff integration
 			"nvim-telescope/telescope.nvim", -- optional
 		},
 		config = true,
@@ -28,6 +28,26 @@ local plugins = {
 		opts = configs.blame,
 		keys = mappings.blame,
 		config = true,
+	},
+
+	{
+		"lewis6991/gitsigns.nvim",
+		---@type Gitsigns.Config
+		opts = {
+			on_attach = function() end,
+			signs = {
+				delete = { text = "󰍵" },
+				changedelete = { text = "󱕖" },
+				untracked = { text = "┃" },
+			},
+			attach_to_untracked = true,
+		},
+		---@param _ LazyPlugin
+		---@param opts Gitsigns.Config
+		config = function(_, opts)
+			dofile(vim.g.base46_cache .. "git")
+			require("gitsigns").setup(opts)
+		end,
 	},
 }
 return plugins

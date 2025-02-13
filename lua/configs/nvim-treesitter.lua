@@ -52,4 +52,11 @@ return {
 		"desktop",
 		"xresources",
 	},
+
+	highlight = {
+		enable = true,
+		use_languagetree = true,
+	},
+
+	indent = { enable = true },
 }

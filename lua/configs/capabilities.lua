@@ -3,7 +3,7 @@ local M = {}
 ---@return UfoConfig
 M.ufo = function()
 	vim.o.foldcolumn = "0" -- '0' is not bad
-	vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+	vim.o.foldlevel = 99  -- Using ufo provider need a large value, feel free to decrease the value
 	vim.o.foldlevelstart = 99
 	vim.o.foldenable = true
 	return {
@@ -91,8 +91,8 @@ M.image = {
 			filetypes = { "markdown", "vimwiki", "quarto" },
 		},
 	},
-	max_width = 100, -- tweak to preference
-	max_height = 12, -- ^
+	max_width = 100,                         -- tweak to preference
+	max_height = 12,                         -- ^
 	max_height_window_percentage = math.huge, -- this is necessary for a good experience
 	max_width_window_percentage = math.huge,
 	window_overlap_clear_enabled = true,
@@ -104,14 +104,14 @@ function M.gx()
 		handlers = {
 			markdown = true,
 			commit = true,
-			plugin = true, -- open plugin links in lua (e.g. packer, lazy, ..)
-			github = true, -- open github issues
-			brewfile = true, -- open Homebrew formulaes and casks
-			package_json = true, -- open dependencies from package.json
-			search = true, -- search the web/selection on the web if nothing else is found
-			go = true, -- open pkg.go.dev from an import statement (uses treesitter)
-			rust = { -- custom handler to open rust's cargo packages
-				name = "rust", -- set name of handler
+			plugin = true,         -- open plugin links in lua (e.g. packer, lazy, ..)
+			github = true,         -- open github issues
+			brewfile = true,       -- open Homebrew formulaes and casks
+			package_json = true,   -- open dependencies from package.json
+			search = true,         -- search the web/selection on the web if nothing else is found
+			go = true,             -- open pkg.go.dev from an import statement (uses treesitter)
+			rust = {               -- custom handler to open rust's cargo packages
+				name = "rust",       -- set name of handler
 				filetype = { "toml" }, -- you can also set the required filetype for this handler
 				filename = "Cargo.toml", -- or the necessary filename
 				handle = function(mode, line, _)
@@ -130,13 +130,13 @@ function M.gx()
 end
 
 --- Generate config for neogen
-require("which-key").add({
-	{ "<leader>a", group = "annotation" },
-})
 function M.neogen()
 	---@type neogen.Configuration
 	local opts = { snippet_engine = "luasnip" }
 	require("neogen").setup(opts)
+	require("which-key").add({
+		{ "<leader>a", group = "annotation" },
+	})
 end
 
 M.autosave = {

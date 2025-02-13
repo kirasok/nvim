@@ -145,6 +145,12 @@ vim.api.nvim_create_user_command("LspCapabilities", function()
 	end
 end, {})
 
+function M.on_init(client, _)
+	if client.supports_method "textDocument/semanticTokens" then
+		client.server_capabilities.semanticTokensProvider = nil
+	end
+end
+
 function M.on_attach(client, bufnr)
 	-- nvchad_on_attach(client, bufnr) -- don't use, it just setups useless keymaps
 	require("mappings.lspconfig").setup(client.server_capabilities)
@@ -154,6 +160,25 @@ function M.on_attach(client, bufnr)
 		vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 	end
 end
+
+M.capabilities = vim.lsp.protocol.make_client_capabilities()
+M.capabilities.textDocument.completion.completionItem = {
+	documentationFormat = { "markdown", "plaintext" },
+	snippetSupport = true,
+	preselectSupport = true,
+	insertReplaceSupport = true,
+	labelDetailsSupport = true,
+	deprecatedSupport = true,
+	commitCharactersSupport = true,
+	tagSupport = { valueSet = { 1 } },
+	resolveSupport = {
+		properties = {
+			"documentation",
+			"detail",
+			"additionalTextEdits",
+		},
+	},
+}
 
 M.action_preview = function(_, _)
 	require("actions-preview").setup({
