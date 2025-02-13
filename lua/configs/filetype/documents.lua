@@ -49,23 +49,15 @@ function M.render_markdown()
 		indent = { enabled = true },
 		sign = { enabled = false },
 	}
-
-	local base30 = require("base46").get_theme_tb("base_30")
-	vim.api.nvim_set_hl(0, "@markup.heading.1", { fg = base30.red, bg = "", bold = true })
-	vim.api.nvim_set_hl(0, "@markup.heading.2", { fg = base30.yellow, bg = "", bold = true })
-	vim.api.nvim_set_hl(0, "@markup.heading.3", { fg = base30.cyan, bg = "", bold = true })
-	vim.api.nvim_set_hl(0, "@markup.heading.4", { fg = base30.green, bg = "", bold = true })
-	vim.api.nvim_set_hl(0, "@markup.heading.5", { fg = base30.blue, bg = "", bold = true })
-	vim.api.nvim_set_hl(0, "@markup.heading.6", { fg = base30.purple, bg = "", bold = true })
 	return opts
 end
 
 ---@type TableNvimConfig
 M.table_nvim = {
 	padd_column_separators = true, -- Insert a space around column separators.
-	mappings = { -- next and prev work in Normal and Insert mode. All other mappings work in Normal mode.
-		next = "<A-TAB>", -- Go to next cell.
-		prev = "<A-S-TAB>", -- Go to previous cell.
+	mappings = {                  -- next and prev work in Normal and Insert mode. All other mappings work in Normal mode.
+		next = "<A-TAB>",           -- Go to next cell.
+		prev = "<A-S-TAB>",         -- Go to previous cell.
 	},
 }
 

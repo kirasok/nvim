@@ -152,7 +152,6 @@ function M.on_init(client, _)
 end
 
 function M.on_attach(client, bufnr)
-	-- nvchad_on_attach(client, bufnr) -- don't use, it just setups useless keymaps
 	require("mappings.lspconfig").setup(client.server_capabilities)
 	client.server_capabilities.documentFormattingProvider = true
 	client.server_capabilities.documentRangeFormattingProvider = true

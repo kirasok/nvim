@@ -126,26 +126,18 @@ return {
 		"lukas-reineke/indent-blankline.nvim",
 		event = "User FilePost",
 		opts = {
-			indent = { char = "│", highlight = "IblChar" },
-			scope = { char = "│", highlight = "IblScopeChar" },
+			indent = { char = "│", highlight = "IblIndent" },
+			scope = { char = "│", highlight = "IblScope" },
 		},
 		config = function(_, opts)
-			dofile(vim.g.base46_cache .. "blankline")
-
 			local hooks = require "ibl.hooks"
 			hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_space_indent_level)
 			require("ibl").setup(opts)
-
-			dofile(vim.g.base46_cache .. "blankline")
 		end,
 	},
 
 	{
 		"nvim-tree/nvim-web-devicons",
-		opts = function()
-			dofile(vim.g.base46_cache .. "devicons")
-			return { override = require "nvchad.icons.devicons" }
-		end,
 	},
 
 	{
@@ -154,9 +146,34 @@ return {
 		keys = { "<leader>", "<c-w>", '"', "'", "`", "c", "v", "g" },
 		cmd = "WhichKey",
 		opts = function()
-			dofile(vim.g.base46_cache .. "whichkey")
 			return {}
 		end,
 	},
+
+	{
+		"rebelot/kanagawa.nvim",
+		lazy = false,
+		opts = {
+			compile = true, -- enable compiling the colorscheme
+			undercurl = true, -- enable undercurls
+			commentStyle = { italic = true },
+			functionStyle = {},
+			keywordStyle = { italic = true },
+			statementStyle = { bold = true },
+			typeStyle = {},
+			transparent = false, -- do not set background color
+			dimInactive = false, -- dim inactive window `:h hl-NormalNC`
+			terminalColors = true, -- define vim.g.terminal_color_{0,17}
+			background = {      -- map the value of 'background' option to a theme
+				dark = "dragon",  -- try "dragon" !
+				light = "lotus"
+			},
+		},
+		config = function(_, opts)
+			require("kanagawa").setup(opts)
+			vim.cmd [[set background=dark]]
+			vim.cmd([[colorscheme kanagawa]])
+		end,
+	}
 
 }

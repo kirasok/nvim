@@ -44,7 +44,7 @@ return {
 			map("n", "<leader>lR", open("lsp_references"), opts("References"))
 		end
 		if server_capabilities.renameProvider then
-			map("n", "<leader>lr", require("nvchad.lsp.renamer"), opts("Rename"))
+			map("n", "<leader>lr", vim.lsp.buf.rename, opts("Rename"))
 		end
 		if server_capabilities.codeActionProvider then
 			vim.keymap.set({ "v", "n" }, "<leader>la", require("actions-preview").code_actions, opts("Code actions"))
