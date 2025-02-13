@@ -22,7 +22,8 @@
           buildInputs = with pkgs; [
             nil
             nixfmt-rfc-style
-						lua-language-server
+            lua-language-server
+            vscode-langservers-extracted
           ];
         };
       }

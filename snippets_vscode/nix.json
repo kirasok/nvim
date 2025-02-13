@@ -1,1 +1,1 @@
-{"bootstrap":{"prefix":"bootstrap","body":["{ config, pkgs, lib, ... }:","{","  $0","}"]},"hpkg":{"prefix":"hpkg","body":["home.packages = with pkgs; [","  $0","];"]}}
+{"bootstrap":{"body":["{ config, pkgs, lib, ... }:","{","  $0","}"],"prefix":"bootstrap"},"hpkg":{"body":["home.packages = with pkgs; [","  $0","];"],"prefix":"hpkg"},"spawn":{"body":["wayland.windowManager.river.settings.spawn = [","  ''\"\\${pkgs.$1}\/bin\/$1$0\"''","];"],"prefix":"spawn"}}
