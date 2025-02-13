@@ -16,8 +16,9 @@ M.formatters = {
 	zsh = { "shfmt" },
 	nix = { "nixfmt" },
 	markdown = { 'markdownlint-cli2' },
-	-- Use a sub-list to run only the first available formatter
-	javascript = { "prettierd", "prettier", stop_after_first = true },
+	typescript = { "deno_fmt" },
+	javascript = { "deno_fmt" },
+	json = { "deno_fmt" }
 }
 
 M.servers = {
@@ -42,14 +43,21 @@ M.servers = {
 						live_mode = true,
 						strict = false,
 					},
+					pyflakes = { enabled = false },
+					mccabe = { enabled = true },
+					rope_autoimport = { enabled = true },
+					pydocstyle = { enabled = false, },
+					pycodestyle = { enabled = false, },
+					autopep8 = { enabled = false },
+					yapf = { enabled = false },
+					flake8 = { enabled = false },
+					pylint = { enabled = false },
+					jedi_completion = { enabled = false },
+					rope_completion = { enabled = true },
+					isort = { enabled = true },
 					rope = { enabled = true },
-					-- rope_autoimport = { enabled = true },
-					pydocstyle = {
-						enabled = false,
-					},
-					pycodestyle = {
-						enabled = false,
-					},
+					pylsp_rope = { enabled = true },
+					ruff = { enabled = true },
 				},
 			},
 		},
