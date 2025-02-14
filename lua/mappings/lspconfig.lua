@@ -52,6 +52,6 @@ return {
 	end,
 
 	outline = function()
-		map("n", "<leader>o", "<cmd>Outline<CR>", { desc = "Toggle outline" })
+		map("n", "<leader>o", "<cmd>Outline!<CR>", { desc = "Toggle outline" })
 	end,
 }
