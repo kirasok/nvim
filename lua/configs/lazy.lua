@@ -43,6 +43,8 @@ return {
 		},
 	},
 	rocks = {
-		hererocks = true,
+		hererocks = false,
 	},
+	checker = { enabled = false },
+	change_detection = { enabled = false },
 }
